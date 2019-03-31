@@ -1,4 +1,4 @@
-# react using webpack
+# React + Webpack + Babel
 ![Alt text](/src/assets/images/banner.png?raw=true "Coders Tokyo")
 ### run docker
 ```
