@@ -9,3 +9,4 @@ chrome-user-data
 .idea
 *.iml
 .vscode
+package-lock.json

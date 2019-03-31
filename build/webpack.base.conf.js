@@ -2,6 +2,7 @@ const path = require('path')
 const HWP = require('html-webpack-plugin')
 const webpack = require('webpack')
 const config = require('../config')
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 const createLintingRule = () =>({
     enforce: "pre",
@@ -36,21 +37,25 @@ module.exports = env => {
                     loader: ['babel-loader'],
                 },
                 {
-                    test: /\.(scss|css|sass)$/,
-                    loader: [
-                        'style-loader', // creates style nodes from JS strings
-                        'css-loader', // translates CSS into CommonJS
-                        'sass-loader' // compiles Sass to CSS, using Node Sass by default
-                    ],
-                },
+                    test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                    loader: 'file-loader',
+                    options: {
+                      limit: 10000,
+                      name: '[path][name]-[hash:8].[ext]'
+                    }
+                }
             ]
         },
         plugins: [
             new HWP ({
-                    template: path.resolve(__dirname, '../index.html'),
-                    filename: config.build.index
+                template: path.resolve(__dirname, '../index.html'),
+                filename: config.build.index
             }),
-            new webpack.DefinePlugin(envKeys)
+            new webpack.DefinePlugin(envKeys),
+            new ExtractTextPlugin({
+                filename: 'css/[name].css',
+                allChunks: true
+              })
         ]
     }
 }

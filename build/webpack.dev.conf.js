@@ -27,6 +27,18 @@ const devWebpackConfig = merge(baseWebpackConfig(config.env), {
           },
         host: process.env.HOST || config.dev.host,
         port: process.env.PORT || config.dev.port
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(scss|css|sass)$/,
+                loader: [
+                    'style-loader', // creates style nodes from JS strings
+                    'css-loader', // translates CSS into CommonJS
+                    'sass-loader' // compiles Sass to CSS, using Node Sass by default
+                ],
+            },
+        ]
     }
 })
 
